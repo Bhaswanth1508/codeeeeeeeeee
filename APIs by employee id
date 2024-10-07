@@ -1,0 +1,35 @@
+//get method//
+{
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "department": "Engineering",
+    "projects": [
+        {
+            "id": 1,
+            "title": "Project Alpha",
+            "description": "First project",
+            "startDate": "2024-01-15",
+            "employee": {
+                "id": 1,
+                "name": "John Doe",
+                "email": "john.doe@example.com",
+                "department": "Engineering",
+                "projects": null
+            }
+        },
+        {
+            "id": 2,
+            "title": "Project Beta",
+            "description": "Second project",
+            "startDate": "2024-02-01",
+            "employee": {
+                "id": 1,
+                "name": "John Doe",
+                "email": "john.doe@example.com",
+                "department": "Engineering",
+                "projects": null
+            }
+        }
+    ]
+}
