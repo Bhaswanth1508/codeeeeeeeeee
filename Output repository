@@ -1,0 +1,24 @@
+//Reposiroty for output//
+//Use the same java file//
+package com.example.employeeprojectmanagement.repository;
+
+import com.example.employeeprojectmanagement.model.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+}
+
+package com.example.employeeprojectmanagement.repository;
+
+import com.example.employeeprojectmanagement.model.Project;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ProjectRepository extends JpaRepository<Project, Long> {
+    List<Project> findByEmployeeId(Long employeeId);
+}
