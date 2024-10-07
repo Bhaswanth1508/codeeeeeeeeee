@@ -1,0 +1,74 @@
+//Use the same java file//
+//This is for project//
+package com.example.employeeprojectmanagement.controller;
+
+import com.example.employeeprojectmanagement.model.Project;
+import com.example.employeeprojectmanagement.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/projects")
+public class ProjectController {
+
+    @Autowired
+    private ProjectService projectService;
+
+    /**
+     * POST /projects : Create a new project.
+     *
+     * @param project The project to create.
+     * @return The created project.
+     */
+    @PostMapping
+    public ResponseEntity<Project> createProject(@RequestBody Project project) {
+        Project createdProject = projectService.createProject(project);
+        return ResponseEntity.ok(createdProject);
+    }
+
+    /**
+     * GET /projects/{id} : Get a project by ID.
+     *
+     * @param id The ID of the project.
+     * @return The project with the specified ID.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
+        Optional<Project> projectOpt = projectService.getProjectById(id);
+        return projectOpt.map(ResponseEntity::ok)
+                        .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * PUT /projects/{id} : Update a project.
+     *
+     * @param id      The ID of the project to update.
+     * @param project The updated project data.
+     * @return The updated project.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project project) {
+        Project updatedProject = projectService.updateProject(id, project);
+        if (updatedProject != null) {
+            return ResponseEntity.ok(updatedProject);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * DELETE /projects/{id} : Delete a project.
+     *
+     * @param id The ID of the project to delete.
+     * @return HTTP status indicating the result.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        boolean deleted = projectService.deleteProject(id);
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+}
