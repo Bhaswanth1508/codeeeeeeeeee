@@ -1,0 +1,74 @@
+//Use testing  file//
+// This is employees format-bash//
+curl -X POST http://localhost:8080/api/employees \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "John Doe",
+           "email": "john.doe@example.com",
+           "department": "Engineering",
+           "projects": [
+               {
+                   "title": "Project Alpha",
+                   "description": "Alpha Description",
+                   "startDate": "2024-01-01"
+               },
+               {
+                   "title": "Project Beta",
+                   "description": "Beta Description",
+                   "startDate": "2024-02-01"
+               }
+           ]
+         }'
+
+//to get overall data by id//
+curl -X GET http://localhost:8080/api/employees/1
+//to get project details//
+curl -X GET http://localhost:8080/api/employees/project/1
+//updating//
+curl -X PUT http://localhost:8080/api/employees/1 \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "John Doe Updated",
+           "email": "john.doe.updated@example.com",
+           "department": "Research and Development",
+           "projects": [
+               {
+                   "id": 1,
+                   "title": "Project Alpha Updated",
+                   "description": "Updated Description",
+                   "startDate": "2024-03-01"
+               }
+           ]
+         }'
+//deleting//
+curl -X DELETE http://localhost:8080/api/employees/1
+//create a new//
+curl -X POST http://localhost:8080/api/projects \
+     -H "Content-Type: application/json" \
+     -d '{
+           "title": "Project Gamma",
+           "description": "Gamma Description",
+           "startDate": "2024-04-01",
+           "employee": {
+               "id": 2
+           }
+         }'
+//project id//
+curl -X GET http://localhost:8080/api/projects/1
+//update project//
+curl -X PUT http://localhost:8080/api/projects/1 \
+     -H "Content-Type: application/json" \
+     -d '{
+           "title": "Project Alpha Final",
+           "description": "Final Description",
+           "startDate": "2024-05-01",
+           "employee": {
+               "id": 2
+           }
+         }'
+//delete a project//
+curl -X DELETE http://localhost:8080/api/projects/1
+
+
+
+
