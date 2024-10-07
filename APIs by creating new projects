@@ -1,0 +1,44 @@
+  //endpoints//
+//url: /api/employees//
+//post methd//
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "department": "Engineering",
+    "projects": [
+        {
+            "title": "Project Alpha",
+            "description": "First project",
+            "startDate": "2024-01-15"
+        },
+        {
+            "title": "Project Beta",
+            "description": "Second project",
+            "startDate": "2024-02-01"
+        }
+    ]
+}
+
+//response//
+{
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "department": "Engineering",
+    "projects": [
+        {
+            "id": 1,
+            "title": "Project Alpha",
+            "description": "First project",
+            "startDate": "2024-01-15",
+            "employee": null
+        },
+        {
+            "id": 2,
+            "title": "Project Beta",
+            "description": "Second project",
+            "startDate": "2024-02-01",
+            "employee": null
+        }
+    ]
+}
