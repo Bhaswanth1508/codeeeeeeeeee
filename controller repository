@@ -1,0 +1,162 @@
+//Project controller and EMployye controller//
+//Use Java file//
+package com.example.employeeprojectmanagement.controller;
+
+import com.example.employeeprojectmanagement.model.Employee;
+import com.example.employeeprojectmanagement.model.Project;
+import com.example.employeeprojectmanagement.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/employees")
+public class EmployeeController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    /**
+     * POST /employees : Create a new employee with projects.
+     *
+     * @param employee The employee to create.
+     * @return The created employee.
+     */
+    @PostMapping
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+        Employee createdEmployee = employeeService.createEmployee(employee);
+        return ResponseEntity.ok(createdEmployee);
+    }
+
+    /**
+     * GET /employees/{id} : Get an employee and their projects by ID.
+     *
+     * @param id The ID of the employee.
+     * @return The employee with their projects.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
+        Optional<Employee> employeeOpt = employeeService.getEmployeeById(id);
+        return employeeOpt.map(ResponseEntity::ok)
+                         .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * GET /employees/project/{projectId} : Get all employees of a specific project.
+     *
+     * @param projectId The ID of the project.
+     * @return List of employees associated with the project.
+     */
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<Employee>> getEmployeesByProjectId(@PathVariable Long projectId) {
+        List<Employee> employees = employeeService.getEmployeesByProjectId(projectId);
+        return ResponseEntity.ok(employees);
+    }
+
+    /**
+     * PUT /employees/{id} : Update an existing employee and their projects.
+     *
+     * @param id The ID of the employee to update.
+     * @param employee The updated employee data.
+     * @return The updated employee.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+        Employee updatedEmployee = employeeService.updateEmployee(id, employee);
+        if (updatedEmployee != null) {
+            return ResponseEntity.ok(updatedEmployee);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * DELETE /employees/{id} : Delete an employee and their projects.
+     *
+     * @param id The ID of the employee to delete.
+     * @return A response indicating the outcome.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+        boolean deleted = employeeService.deleteEmployee(id);
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+}
+
+
+package com.example.employeeprojectmanagement.controller;
+
+import com.example.employeeprojectmanagement.model.Project;
+import com.example.employeeprojectmanagement.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/projects")
+public class ProjectController {
+
+    @Autowired
+    private ProjectService projectService;
+
+    /**
+     * POST /projects : Create a new project.
+     *
+     * @param project The project to create.
+     * @return The created project.
+     */
+    @PostMapping
+    public ResponseEntity<Project> createProject(@RequestBody Project project) {
+        Project createdProject = projectService.createProject(project);
+        return ResponseEntity.ok(createdProject);
+    }
+
+    /**
+     * GET /projects/{id} : Get a project by ID.
+     *
+     * @param id The ID of the project.
+     * @return The project with the specified ID.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
+        Optional<Project> projectOpt = projectService.getProjectById(id);
+        return projectOpt.map(ResponseEntity::ok)
+                        .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * PUT /projects/{id} : Update an existing project.
+     *
+     * @param id The ID of the project to update.
+     * @param project The updated project data.
+     * @return The updated project.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project project) {
+        Project updatedProject = projectService.updateProject(id, project);
+        if (updatedProject != null) {
+            return ResponseEntity.ok(updatedProject);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * DELETE /projects/{id} : Delete a project.
+     *
+     * @param id The ID of the project to delete.
+     * @return A response indicating the outcome.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        boolean deleted = projectService.deleteProject(id);
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+}
