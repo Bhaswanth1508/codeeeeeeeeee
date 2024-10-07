@@ -1,0 +1,75 @@
+//cURL//
+//bash file//
+curl -X POST http://localhost:8080/api/employees \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "John Doe",
+           "email": "john.doe@example.com",
+           "department": "Engineering",
+           "projects": [
+               {
+                   "title": "Project Alpha",
+                   "description": "First project",
+                   "startDate": "2024-01-15
+               },
+               {
+                   "title": "Project Beta",
+                   "description": "Second project",
+                   "startDate": "2024-02-01"
+               }
+           ]
+         }'
+//employyee id//
+curl -X GET http://localhost:8080/api/employees/1
+//all employees of a project//
+curl -X GET http://localhost:8080/api/employees/project/1
+//update employee and project details//
+curl -X PUT http://localhost:8080/api/employees/1 \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "John Doe Jr.",
+           "email": "john.doe.jr@example.com",
+           "department": "Research and Development",
+           "projects": [
+               {
+                   "id": 1,
+                   "title": "Project Alpha Updated",
+                   "description": "Updated description",
+                   "startDate": "2024-01-20"
+               },
+               {
+                   "title": "Project Gamma",
+                   "description": "New project",
+                   "startDate": "2024-03-01"
+               }
+           ]
+         }'
+//delete and employee//
+curl -X DELETE http://localhost:8080/api/employees/1
+//create a new project//
+curl -X POST http://localhost:8080/api/projects \
+     -H "Content-Type: application/json" \
+     -d '{
+           "title": "Project Delta",
+           "description": "Fourth project",
+           "startDate": "2024-04-01",
+           "employee": {
+               "id": 2
+           }
+         }'
+//project id//
+curl -X GET http://localhost:8080/api/projects/1
+//update project//
+curl -X PUT http://localhost:8080/api/projects/1 \
+     -H "Content-Type: application/json" \
+     -d '{
+           "title": "Project Alpha Final",
+           "description": "Final update to Project Alpha",
+           "startDate": "2024-01-25",
+           "employee": {
+               "id": 2
+           }
+         }'
+//delete a project//
+curl -X DELETE http://localhost:8080/api/projects/1
+
